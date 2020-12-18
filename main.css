@@ -1,7 +1,6 @@
 /* vim: set nowrap: */
 :root {
     --color-main-fg: skyblue;
-    /*--color-highlight-fg: #f3c;*/
     --color-highlight-fg: limegreen;
     --color-highlight-bg: #333;
     --color-bound-keys: #222;

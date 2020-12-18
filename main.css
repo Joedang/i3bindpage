@@ -1,15 +1,12 @@
 /* vim: set nowrap: */
 :root {
-    --color-main-fg: lightgray;
-    --color-volun-fg: lightgreen;
-    --color-misc-fg: lightskyblue;
-    --color-shop-fg: lightsalmon;
-    --color-job-fg: white;
-    --color-game-fg: khaki;
-
-    --color-highlight-fg: #f3c;
+    --color-main-fg: skyblue;
+    /*--color-highlight-fg: #f3c;*/
+    --color-highlight-fg: limegreen;
     --color-highlight-bg: #333;
+    --color-bound-keys: #222;
     --color-default-bg: #111;
+    --color-unbound-keys: black;
     --color-default-fg: var(--color-main-fg);
 }
 * {
@@ -17,15 +14,15 @@
     margin: 5px;
     padding: 5px;
 }
-
+/*
 html {
     margin: 0px;
     padding: 0px;
 }
-
+*/
 body {
     background: var(--color-default-bg);
-    padding: 10%;
+    padding: 0%;
     margin: 0px;
     padding-top: 0px;
     text-align: center;
@@ -47,6 +44,7 @@ div.key {
 
 div.key:hover { 
     background: var(--color-highlight-bg); 
+    color: var(--color-highlight-fg); 
     border: 4px solid;
     margin: -2px;
 }

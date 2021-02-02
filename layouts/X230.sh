@@ -9,12 +9,12 @@ layoutName='ThinkPad X230'
 declare -a keyLayout=( \
 XF86AudioMute XF86AudioLowerVolume XF86AudioRaiseVolume XF86AudioMicMute XF86Launch1 TINYFILL Power EOL \
 XF86Lock XF86Sleep XF86WLAN XF86WebCam XF86Display XF86MonBrightnessDown XF86MonBrightnessUp XF86AudioPrev XF86AudioPlay XF86AudioNext EOL \
-Escape F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 Home End Insert Delete EOL \
-grave 1 2 3 4 5 6 7 8 9 0 minus equal BackSpace EOL \
-Tab q w e r t y u i o p bracketleft bracketright bar EOL \
-Caps_Lock a s d f g h j k l semicolon apostrophe Return EOL \
-Shift_L z x c v b n m comma period slash Shift_R EOL \
-FUNCTION Control_L Mod4 Mod1 space Mod1 Print Control_R Prior Up Next EOL \
+        Escape     F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 Home End Insert Delete EOL \
+                grave     1 2 3 4 5 6 7 8 9 0     minus equal BackSpace EOL \
+                Tab        q w e r t y u i o p     bracketleft bracketright bar EOL \
+                Caps_Lock   a s d f g h j k l     semicolon apostrophe Return EOL \
+                Shift_L      z x c v b n m     comma period slash Shift_R EOL \
+FUNCTION Control_L Super_L Alt_L   space   Alt_R Print Control_R Prior Up Next EOL \
 ARROWFILL Left Down Right EOL \
 button1 button2 button3 \
 )
@@ -23,8 +23,15 @@ button1 button2 button3 \
 # keysym aliases {{{
 # Any key rebindings you use should go here. [physical key]=what it acts like
 #(This doesn't work well with swapped keys. That would be better of descibed in the layout.)
+#(Multiple aliases on a key are also not supported.)
 declare -A keyAliases=( \
-    [Shift_L]=Shift [Shift_R]=Shift [grave]=asciitilde [Caps_Lock]=Escape [Contrl_L]=Ctrl [Control_R]=Ctrl \
+    [Shift_L]=Shift [Shift_R]=Shift \
+    [Contrl_L]=Ctrl [Control_R]=Ctrl \
+    [Super_L]=Mod4 [Super_R]=Mod4 \
+    [Alt_L]=Mod1 [Alt_R]=Mod1 \
+    [grave]=asciitilde \
+    [XF86AudioPlay]=XF86AudioPause \
+    [Caps_Lock]=Escape \
 )
 # }}}
 
@@ -36,10 +43,10 @@ declare -A keyAliases=( \
 addedCSS='
 :root {
     --key-width: 70px;
-    --tiny-key-width: calc(0.855 * var(--key-width));
-    --arrow-key-width: calc(0.932 * var(--key-width));
+    --tiny-key-width: calc(0.845 * var(--key-width));
+    --arrow-key-width: calc(0.917 * var(--key-width));
+    --color-main-fg: skyblue;
     /*
-    --color-main-fg: pink;
     --tiny-key-height: calc(0.3 * var(--key-width));
     --color-main-fg: skyblue;
     --color-highlight-fg: limegreen;
@@ -71,7 +78,7 @@ translateKeys() {
             ;;
     esac
     case "$key" in 
-        *FILL*) adhocStyle+=' opacity: 0.2;' ;;
+        *FILL*) adhocStyle+=' opacity: 0.0;' ;;
     esac
     case "$key" in # Translate the keysym into what will be displayed. Edit to match what's physically on your keys.
         # These don't need to be in order. It's just easier to read that way.
@@ -85,14 +92,14 @@ translateKeys() {
         XF86Sleep)            keyName='🌜' ;;
         XF86WLAN)             keyName='📡' ;;
         XF86WebCam)           keyName='📸🎤' ;; 
-        XF86Display)          keyName='📽' ;;
+        XF86Display)          keyName='▭⚟' ;;
         XF86MonBrightnessDown)keyName='🌞-' ;;
         XF86MonBrightnessUp)  keyName='🌞+' ;;
         XF86AudioPrev)        keyName='|◂' ;;
-        XF86AudioPlay)        keyName='▸⏸' ;;
+        XF86AudioPlay)        keyName='▸||' ;;
         XF86AudioNext)        keyName='▸|' ;;
-        Power)                keyName='⏻' ;;
-        Escape)               adhocStyle+='min-width: calc(1.25 * var(--tiny-key-width));'; keyName='Esc' ;;
+        Power)                keyName='Power' ;;
+        Escape)               adhocStyle+='min-width: calc(1.33 * var(--tiny-key-width));'; keyName='Esc' ;;
         F[0-9]* | Home | End) ;;
         Insert)       keyName='Ins' ;;
         Delete)       adhocStyle+='min-width: calc(1.25 * var(--tiny-key-width));'; keyName='Del' ;;
@@ -115,10 +122,9 @@ translateKeys() {
         period)       keyName='.' ;;
         slash)        keyName='/' ;;
         FUNCTION)     keyName='Fn' ;;
-        Ctrl)         adhocStyle+='min-width: calc(1.25 * var(--key-width));' ;;
         Control_L)    adhocStyle+='min-width: calc(1.25 * var(--key-width));'; keyName='Ctrl' ;;
-        Mod4)         keyName='🪟' ;;
-        Mod1)         keyName='Alt' ;;
+        Super_*)      keyName='🪟' ;;
+        Alt_*)        keyName='Alt' ;;
         space)        adhocStyle+='min-width: calc(5.00   * var(--key-width));' ;;
         Control_R)    keyName='Ctrl';;
         ARROWFILL)    adhocStyle+='min-width: calc(15 * var(--key-width) - 3 * var(--arrow-key-width));'; keyName=' ' ;;

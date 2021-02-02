@@ -1,5 +1,8 @@
-/* vim: set nowrap: */
-:root {
+/* styling rules for bindgraph.sh
+ * Joe Shields, 2021-02-02
+ * vim: nowrap: foldmethod=marker: foldmarker={,}: 
+ */
+:root { /* global parameters */
     /*--color-default-fg: var(--color-misc-fg); */
     --key-width: 60px;
     --key-height: var(--key-width);
@@ -7,12 +10,12 @@
     --tiny-key-height: calc(0.3 * var(--key-width));
     --tiny-key-width: calc(0.82 * var(--key-width));
     --tiny-key-font-size: calc(0.3 * var(--key-width));
-    --color-main-fg: skyblue;
-    --color-highlight-fg: limegreen;
-    --color-highlight-bg: #333;
-    --color-bound-keys: #222;
-    --color-default-bg: #111;
-    --color-unbound-keys: black;
+    --color-main-fg:         gray;
+    --color-highlight-fg:    limegreen;
+    --color-highlight-bg:    #050;
+    --color-default-bg:      #080808;
+    --color-bound-keys-bg:   #111;
+    --color-unbound-keys-bg: black;
     --color-default-fg: var(--color-main-fg);
 }
 * {
@@ -53,6 +56,12 @@ div.keybox {
     border: 2px solid;
     border-radius: 10px;
     float: center;
+}
+div.keybox[bound=true]{
+    background: var(--color-bound-keys-bg);
+}
+div.keybox[bound=false]{
+    background: var(--color-unbound-keys-bg);
 }
 div.keybox:hover { 
     background: var(--color-highlight-bg); 

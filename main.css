@@ -1,5 +1,9 @@
 /* vim: set nowrap: */
 :root {
+    /*--color-default-fg: var(--color-misc-fg); */
+    --key-width: 60px;
+    --tiny-key-height: calc(0.3 * var(--key-width));
+    --tiny-key-width: calc(0.82 * var(--key-width));
     --color-main-fg: skyblue;
     --color-highlight-fg: limegreen;
     --color-highlight-bg: #333;
@@ -13,19 +17,17 @@
     margin: 5px;
     padding: 5px;
 }
-/*
 html {
     margin: 0px;
     padding: 0px;
 }
-*/
 body {
     background: var(--color-default-bg);
     padding: 0%;
     margin: 0px;
     padding-top: 0px;
     text-align: center;
-    font-size: 16pt;
+    font-size: calc(0.4 * var(--key-width));
 }
 
 div.key {
@@ -38,7 +40,7 @@ div.key {
     text-align: center;
     display: inline-block;
     float: center;
-    min-width: 4%;
+    min-width: var(--key-width);
 }
 
 div.key:hover { 

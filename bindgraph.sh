@@ -2,9 +2,13 @@
 # Create an HTML file depicting i3 bindings.
 # Joe Shields, 2020-12-13
 
-configFile=config # location of your i3 config file
-output=bindings.html # file to be [over]written
-source layouts/X230.sh # choose your layout (or write your own)
+configFile=/home/joedang/.config/i3/config # location of your i3 config file
+outputDir=/tmp
+cssFile=/home/joedang/src/bash/bindgraph/main.css
+headFile=/home/joedang/src/bash/bindgraph/head.html
+#source /home/joedang/src/bash/bindgraph/layouts/X230.sh # choose your layout (or write your own)
+source /home/joedang/src/bash/bindgraph/layouts/en_US_tenkeyless.sh # choose your layout (or write your own)
+BROWSER=${BROWSER:=firefox} # open with firefox, if another default browser is not set
 
 declare -A infoArray # holds the mouse-over text for each key
 lenLayout=${#keyLayout[@]} # length of the layout array
@@ -53,9 +57,14 @@ done < <(\
                 ' "$configFile"\
                 | sed -r -e ':x /\\$/ { N; s/\\\n//g ; bx }; s/\s+/ /g;'\
         ) 
+for key in "${!keyAliases[@]}"; do
+    keyAlias="${keyAliases[$key]}"
+    infoArray["$key"]+="${infoArray["$keyAlias"]}"
+done
 
 { # write the output
-    cat head.html
+    cat "$headFile"
+    echo "<style>$addedCSS</style>"
     declare -a orphanKeys
     for (( i=0; i<lenLayout; ++i ))
     do
@@ -64,19 +73,21 @@ done < <(\
         keyName=$key # the display name of that key
         translateKeys # apply the keyName as per the keyboard layout script
         if [[ "$key" == "EOL" ]];then
-            echo "<br/>"
+            echo -n "<br/>"
         else
             if [[ "${infoArray[$key]}" == "" ]];then
-                echo "<div class=key title=\"$key is unbound\" style=\"background: black; $adhocStyle\">$keyName</div>"
+                echo -n "<div class=key title=\"$key is unbound\" style=\"background: black; $adhocStyle\">$keyName</div>"
             else
                 friendlyInfo="$(echo "key: $key"$'\n--------------------\n'"${infoArray[$key]}" | sed 's/"/\&quot;/g' )"
-                echo -E "<div class=key title=\"$friendlyInfo\" style=\"$adhocStyle\">$keyName</div>"
+                echo -nE "<div class=key title=\"$friendlyInfo\" style=\"$adhocStyle\">$keyName</div>"
             fi
         fi
     done
     if [[ "${#orphanKeys[@]}" > 0 ]];then
-        echo "<br/>Warning: the following keys appear in your i3 config, but not this keyboard layout:<br>${orphanKeys[@]}"
+        echo -n "<br/>Warning: the following keys appear in your i3 config, but not this keyboard layout:<br>${orphanKeys[@]}"
     fi
     echo ' </body> </html> '
-} > "$output"
+} > "$outputDir/bindings.html"
+cp "$cssFile" "$outputDir/main.css"
+"$BROWSER" "$outputDir/bindings.html"
 exit 0

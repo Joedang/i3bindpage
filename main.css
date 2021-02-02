@@ -2,6 +2,7 @@
 :root {
     /*--color-default-fg: var(--color-misc-fg); */
     --key-width: 60px;
+    --key-height: var(--key-width);
     --tiny-key-height: calc(0.3 * var(--key-width));
     --tiny-key-width: calc(0.82 * var(--key-width));
     --color-main-fg: skyblue;
@@ -31,23 +32,28 @@ body {
 }
 
 div.key {
-    padding: 5px;
-    margin: 2px;
-    margin-left: 0px;
-    margin-right: 0px;
-    border: 2px solid;
-    border-radius: 10px;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 12px;
     text-align: center;
     display: inline-block;
     float: center;
     min-width: var(--key-width);
+    //min-height: var(--key-height);
 }
 
-div.key:hover { 
+div.keybox {
+    margin: 2px;
+    padding: 0px;
+    border: 2px solid;
+    border-radius: 10px;
+    float: center;
+}
+div.keybox:hover { 
     background: var(--color-highlight-bg); 
     color: var(--color-highlight-fg); 
     border: 4px solid;
-    margin: -2px;
+    margin: 0px;
 }
 
 hr {

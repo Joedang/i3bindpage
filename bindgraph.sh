@@ -6,8 +6,8 @@ configFile=/home/joedang/.config/i3/config # location of your i3 config file
 outputDir=/tmp
 cssFile=/home/joedang/src/bash/bindgraph/main.css
 headFile=/home/joedang/src/bash/bindgraph/head.html
-#source /home/joedang/src/bash/bindgraph/layouts/X230.sh # choose your layout (or write your own)
-source /home/joedang/src/bash/bindgraph/layouts/en_US_tenkeyless.sh # choose your layout (or write your own)
+source /home/joedang/src/bash/bindgraph/layouts/X230.sh # choose your layout (or write your own)
+#source /home/joedang/src/bash/bindgraph/layouts/en_US_tenkeyless.sh # choose your layout (or write your own)
 BROWSER=${BROWSER:=firefox} # open with firefox, if another default browser is not set
 
 declare -A infoArray # holds the mouse-over text for each key
@@ -76,10 +76,10 @@ done
             echo -n "<br/>"
         else
             if [[ "${infoArray[$key]}" == "" ]];then
-                echo -n "<div class=key title=\"$key is unbound\" style=\"background: black; $adhocStyle\">$keyName</div>"
+                echo -n "<div class=key title=\"$key is unbound\" style=\"background: black; $adhocStyle\"><div class=keybox>$keyName</div></div>"
             else
                 friendlyInfo="$(echo "key: $key"$'\n--------------------\n'"${infoArray[$key]}" | sed 's/"/\&quot;/g' )"
-                echo -nE "<div class=key title=\"$friendlyInfo\" style=\"$adhocStyle\">$keyName</div>"
+                echo -nE "<div class=key title=\"$friendlyInfo\" style=\"$adhocStyle\"><div class=keybox>$keyName</div></div>"
             fi
         fi
     done

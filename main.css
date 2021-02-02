@@ -3,8 +3,10 @@
     /*--color-default-fg: var(--color-misc-fg); */
     --key-width: 60px;
     --key-height: var(--key-width);
+    --key-font-size: calc(0.4 * var(--key-width));
     --tiny-key-height: calc(0.3 * var(--key-width));
     --tiny-key-width: calc(0.82 * var(--key-width));
+    --tiny-key-font-size: calc(0.3 * var(--key-width));
     --color-main-fg: skyblue;
     --color-highlight-fg: limegreen;
     --color-highlight-bg: #333;
@@ -28,7 +30,7 @@ body {
     margin: 0px;
     padding-top: 0px;
     text-align: center;
-    font-size: calc(0.4 * var(--key-width));
+    font-size: var(--key-font-size);
 }
 
 div.key {
@@ -40,11 +42,14 @@ div.key {
     float: center;
     min-width: var(--key-width);
     //min-height: var(--key-height);
+    font-size: var(--key-font-size);
 }
 
 div.keybox {
     margin: 2px;
-    padding: 0px;
+    padding: 2px;
+    padding-top:    3px;
+    padding-bottom: 3px;
     border: 2px solid;
     border-radius: 10px;
     float: center;
@@ -54,6 +59,10 @@ div.keybox:hover {
     color: var(--color-highlight-fg); 
     border: 4px solid;
     margin: 0px;
+}
+
+div.hidden {
+    font-size: 0px;
 }
 
 hr {

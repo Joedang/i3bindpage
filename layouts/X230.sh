@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # layout of a ThinkPad X230 notebook's keyboard
+# Joe Shields, 2021-02-01
+# vim: foldmethod=marker: foldmarker={{{,}}}:
+layoutName='ThinkPad X230'
 
+# layout of keysyms in rows {{{
 # Edit this to match the *keysyms* of your keyboard+layout. Use "EOL" to break rows. (Use `xev` to figure out your keysyms.)
 declare -a keyLayout=( \
 XF86AudioMute XF86AudioLowerVolume XF86AudioRaiseVolume XF86AudioMicMute XF86Launch1 TINYFILL Power EOL \
@@ -10,26 +14,30 @@ grave 1 2 3 4 5 6 7 8 9 0 minus equal BackSpace EOL \
 Tab q w e r t y u i o p bracketleft bracketright bar EOL \
 Caps_Lock a s d f g h j k l semicolon apostrophe Return EOL \
 Shift_L z x c v b n m comma period slash Shift_R EOL \
-FUNCTION Control_L Mod4 Mod1 space Mod1 Print Control_R ARROWFILL EOL \
-Prior Up Next EOL \
-Left Down Right EOL \
+FUNCTION Control_L Mod4 Mod1 space Mod1 Print Control_R Prior Up Next EOL \
+ARROWFILL Left Down Right EOL \
 button1 button2 button3 \
 )
+# }}}
 
+# keysym aliases {{{
 # Any key rebindings you use should go here. [physical key]=what it acts like
 #(This doesn't work well with swapped keys. That would be better of descibed in the layout.)
 declare -A keyAliases=( \
     [Shift_L]=Shift [Shift_R]=Shift [grave]=asciitilde [Caps_Lock]=Escape [Contrl_L]=Ctrl [Control_R]=Ctrl \
 )
+# }}}
 
+# layout-specific CSS {{{
 # Use this to add layout-specific CSS. (applied after main.css)
 # This is mainly useful for very large/small keyboards,
 # keyboards that have extra wide/narrow keys, 
 # or when you want to use color to help differentiate keyboard layouts.
 addedCSS='
 :root {
-    --key-width: 60px;
+    --key-width: 70px;
     --tiny-key-width: calc(0.855 * var(--key-width));
+    --arrow-key-width: calc(0.932 * var(--key-width));
     /*
     --color-main-fg: pink;
     --tiny-key-height: calc(0.3 * var(--key-width));
@@ -43,7 +51,9 @@ addedCSS='
     */
 }
 '
+# }}}
 
+# key exceptions {{{
 translateKeys() {
     # Use this to tweak how individual keys (or groups of keys) appear.
     # keyName is what's printed on the physical keycap.
@@ -51,8 +61,13 @@ translateKeys() {
     # Protip: If you add up the key widths for each row, you should get the same number for each row. (usually a whole number)
     # X230: normal rows add up to 15*--key-width, tiny rows add up to 17.5*--tiny-key-width.
     case "$key" in # style the tiny keys
-        Escape | XF86* | TINYFILL | Power | F[0-9]* | Home | End | Insert | Delete | Prior | Next | Up | Down | Left | Right)
-            adhocStyle+=' font-size: var(--tiny-key-height); min-width: var(--tiny-key-width);' 
+        Escape | XF86* | TINYFILL | Power | F[0-9]* | Home | End | Insert | Delete)
+            adhocStyle+=' font-size: var(--tiny-key-font-size); min-width: var(--tiny-key-width);' 
+            ;;
+    esac
+    case "$key" in
+        Prior | Next | Up | Down | Left | Right)
+            adhocStyle+=' font-size: var(--tiny-key-font-size); min-width: var(--arrow-key-width);' 
             ;;
     esac
     case "$key" in 
@@ -106,7 +121,7 @@ translateKeys() {
         Mod1)         keyName='Alt' ;;
         space)        adhocStyle+='min-width: calc(5.00   * var(--key-width));' ;;
         Control_R)    keyName='Ctrl';;
-        ARROWFILL)    adhocStyle+='min-width: calc(2.75 * var(--key-width));'; keyName=' ' ;;
+        ARROWFILL)    adhocStyle+='min-width: calc(15 * var(--key-width) - 3 * var(--arrow-key-width));'; keyName=' ' ;;
         Prior)        keyName='PgUp' ;;
         Next)         keyName='PgDn' ;;
         Up)           keyName='↑' ;;
@@ -118,3 +133,4 @@ translateKeys() {
         button3)      keyName='right click' ;;
     esac
 }
+# }}}

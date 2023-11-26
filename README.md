@@ -14,10 +14,8 @@ Info about what action a binding triggers is shown as mouse-over text.
 TODO: images go here
 
 # Dependencies
-- Bash
-- Sed
-- Cat
-- Something to view HTML+CSS
+This is meant to be very hackable and portable.
+It uses pure/organic/vanilla/original-recipe HTML, CSS, and Bash (plus some Sed and Cat).
 
 # Files
 ## layouts/\*.sh
@@ -50,9 +48,10 @@ This provides the styling info for the HTML.
 This provides some simple HTML for the start of the output file.
 
 # TODO
-- [ ] Read from a config file, rather than having the config in the head of the script.
+- [P] Read from a config file, rather than having the config in the head of the script.
     - [ ] Allow that config to override `main.css`.
 - [ ] Maybe use a couple of arrays rather than the giant case statement in `translateKeys()`?
 - [ ] Look into light-weight programs that can display things as a pop-up.
 - [ ] Do the layout for my CM Storm, so there's another example of a keyboard with lots of function keys.
 - [ ] Maybe do an example with some depiction of a mouse with lots of buttons.
+- [ ] Get rid of the Sed and Cat dependencies for KoolKid Points™.

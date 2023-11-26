@@ -4,14 +4,24 @@
 # vim: foldmethod=marker: foldmarker={{{,}}}:
 
 # script configuration {{{
-configFile=/home/joedang/.config/i3/config # location of your i3 config file
-outputDir=/tmp
-cssFile=/home/joedang/src/bash/bindgraph/main.css
-headFile=/home/joedang/src/bash/bindgraph/head.html
-layoutFile=/home/joedang/src/bash/bindgraph/layouts/X230.sh # choose your layout (or write your own)
-#layoutFile=/home/joedang/src/bash/bindgraph/layouts/en_US_tenkeyless.sh
-#layoutFile=/home/joedang/src/bash/bindgraph/layouts/en_US_104.sh
-BROWSER=${BROWSER:=firefox} # open with firefox, if another default browser is not set
+# directory containing bindgraph.sh
+installDir="$HOME/src/bash/bindgraph" # the location this script is installed to
+configHome="${XDG_CONFIG_HOME:="$HOME/.config"}" # get the location of the config dir; default to ~/.config
+bindgraphrcFile="$configHome/bindgraph/bindgraphrc"
+if [[ -r "$bindgraphrcFile" ]];then # config file exists and is readable
+    source "$bindgraphrcFile"
+else
+    source "$installDir/bindgraphrc" # default to the one that comes with the script
+fi
+#TODO: define default behavior if no config is found.
+#configFile=/home/joedang/.config/i3/config # location of your i3 config file
+#outputDir=/tmp
+#cssFile=/home/joedang/src/bash/bindgraph/main.css
+#headFile=/home/joedang/src/bash/bindgraph/head.html
+#layoutFile=/home/joedang/src/bash/bindgraph/layouts/X230.sh # choose your layout (or write your own)
+##layoutFile=/home/joedang/src/bash/bindgraph/layouts/en_US_tenkeyless.sh
+##layoutFile=/home/joedang/src/bash/bindgraph/layouts/en_US_104.sh
+#BROWSER=${BROWSER:=firefox} # open with firefox, if another default browser is not set
 # }}}
 
 source "$layoutFile"

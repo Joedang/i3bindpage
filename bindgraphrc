@@ -1,0 +1,21 @@
+# Bindgraph default configuration
+# User-specific configurations should go in $HOME/.config/bindgraph/bindgraphrc
+# The configuration simply gets sourced as a script at the start of bindgraph.
+
+# location of your i3 config file
+configFile="$configHome/i3/config"
+
+# choose your layout (or write your own)
+layoutFile="$installDir/layouts/X230.sh"
+
+# directory to hold the output
+outputDir=/tmp
+
+# location of main.css, if not inside installDir
+cssFile="$installDir/main.css"
+
+# location of head.html, if not inside installDir
+headFile="$installDir/head.html"
+
+# command to view the output. Set this to "true" or ":" if you don't want to automatically view the output.
+BROWSER="${BROWSER:=firefox}" # use the default browser, or firefox if the default is not set
